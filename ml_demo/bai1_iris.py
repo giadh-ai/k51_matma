@@ -1,5 +1,5 @@
 import pandas as pd
-file_path = '/workspaces/k51_matma/ml_demo/data/Iris.csv'
+file_path = 'data/iris.csv'
 df = pd.read_csv(file_path)
 
 # --- Chuẩn bị dữ liệu ---
