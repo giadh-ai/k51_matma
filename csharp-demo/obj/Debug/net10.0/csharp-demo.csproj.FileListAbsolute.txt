@@ -1,0 +1,15 @@
+/workspaces/k51_matma/csharp-demo/bin/Debug/net10.0/csharp-demo
+/workspaces/k51_matma/csharp-demo/bin/Debug/net10.0/csharp-demo.deps.json
+/workspaces/k51_matma/csharp-demo/bin/Debug/net10.0/csharp-demo.runtimeconfig.json
+/workspaces/k51_matma/csharp-demo/bin/Debug/net10.0/csharp-demo.dll
+/workspaces/k51_matma/csharp-demo/bin/Debug/net10.0/csharp-demo.pdb
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.AssemblyInfoInputs.cache
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.AssemblyInfo.cs
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.csproj.CoreCompileInputs.cache
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.sourcelink.json
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.dll
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/refint/csharp-demo.dll
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.pdb
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/csharp-demo.genruntimeconfig.cache
+/workspaces/k51_matma/csharp-demo/obj/Debug/net10.0/ref/csharp-demo.dll
