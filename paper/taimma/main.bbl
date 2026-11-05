@@ -1,0 +1,72 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{b6}
+Abusnaina, A., Khormali, A., Alasmary, H., Park, J., Anwar, A., Mohaisen, A.:
+  Adversarial learning attacks on graph-based {IoT} malware detection systems.
+  In: Proceedings of the IEEE International Conference on Distributed Computing
+  Systems (ICDCS). pp. 1296--1305 (2019)
+
+\bibitem{b1}
+Alrawi, O., Lever, C., Valakuzhy, K., Court, R., Snow, K., Monrose, F.,
+  Antonakakis, M.: The circle of life: A large-scale study of the {IoT} malware
+  lifecycle. In: Proceedings of the USENIX Security Symposium. pp. 3505--3522
+  (2021)
+
+\bibitem{b5}
+Chaganti, R., Ravi, V., Pham, T.D.: Deep learning based cross architecture
+  internet of things malware detection and classification. Computers \&
+  Security  \textbf{120},  102779 (2022)
+
+\bibitem{b3}
+Cozzi, E., Graziano, M., Fratantonio, Y., Balzarotti, D.: Understanding {Linux}
+  malware. In: IEEE Symposium on Security and Privacy (SP). pp. 161--175 (2018)
+
+\bibitem{b9}
+Duan, Y., Li, X., Wang, J., Yin, H.: {DeepBinDiff}: Learning program-wide code
+  representations for binary diffing. In: Proceedings of the Network and
+  Distributed System Security Symposium (NDSS) (2020)
+
+\bibitem{b4}
+Kawakoya, Y., Akabane, S., Iwamura, M., Okamoto, T.: {Xunpack}:
+  Cross-architecture unpacking for {Linux} {IoT} malware. In: Proceedings of
+  the International Symposium on Research in Attacks, Intrusions and Defenses
+  (RAID). pp. 471--484 (2023)
+
+\bibitem{malgraph2022}
+Ling, X., Wu, L., Deng, W., Qu, Z., Zhang, J., Zhang, S., Ma, T., Wang, B., Wu,
+  C., Ji, S.: {MalGraph}: Hierarchical graph neural networks for robust
+  {Windows} malware detection. In: Proceedings of IEEE INFOCOM. pp. 1998--2007
+  (2022). \doi{10.1109/INFOCOM48880.2022.9796786}
+
+\bibitem{b10}
+Luo, Z., et~al.: {VulHawk}: Cross-architecture vulnerability detection with
+  entropy-based binary code search. In: Proceedings of the Network and
+  Distributed System Security Symposium (NDSS) (2023)
+
+\bibitem{b7}
+Pa, Y., Suzuki, S., Yoshioka, K., Matsumoto, T., Kasama, T., Rossow, C.:
+  {IoTPOT}: A novel honeypot for revealing current {IoT} threats. Journal of
+  Information Processing  \textbf{24}(3),  522--533 (2016).
+  \doi{10.2197/ipsjjip.24.522}
+
+\bibitem{b2}
+Roman, R., Lopez, J., Mambo, M.: Mobile edge computing, fog et al.: A survey
+  and analysis of security threats and challenges. Future Generation Computer
+  Systems  \textbf{78},  680--698 (2018)
+
+\bibitem{wang2021hier}
+Wang, S., Zhao, Y., Liu, G., Su, B.: A hierarchical graph-based neural network
+  for malware classification. In: Neural Information Processing (ICONIP 2021).
+  Lecture Notes in Computer Science, vol. 13111, pp. 621--633 (2021).
+  \doi{10.1007/978-3-030-92273-3_51}
+
+\bibitem{b8}
+Xu, X., Liu, C., Feng, Q., Yin, H., Song, L., Song, D.: Neural network-based
+  graph embedding for cross-platform binary code similarity detection. In:
+  Proceedings of the ACM SIGSAC Conference on Computer and Communications
+  Security (CCS). pp. 363--376 (2017)
+
+\end{thebibliography}

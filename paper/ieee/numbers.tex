@@ -1,0 +1,48 @@
+% numbers.tex — SỐ THẬT (5 seed, max-pool, test family-disjoint). 2026-09-30.
+% Thay TOÀN BỘ numbers.tex hiện tại bằng file này.
+
+% ---- H-GNN max-pool (mô hình chính), test 5 seed ----
+\newcommand{\hgnnF}{97.99}
+\newcommand{\hgnnFstd}{0.44}
+\newcommand{\hgnnAcc}{97.69}
+\newcommand{\hgnnAccStd}{0.51}
+\newcommand{\hgnnPrec}{96.99}
+\newcommand{\hgnnPrecStd}{1.06}
+\newcommand{\hgnnRec}{99.02}
+\newcommand{\hgnnRecStd}{0.63}
+\newcommand{\hgnnMcc}{95.31}
+\newcommand{\hgnnMccStd}{1.04}
+\newcommand{\hgnnPrauc}{99.55}
+\newcommand{\hgnnPraucStd}{0.34}
+\newcommand{\hgnnFpr}{1.29}
+\newcommand{\hgnnFprStd}{1.56}
+
+% ---- val (chọn epoch) ----
+\newcommand{\hgnnValF}{98.21}
+\newcommand{\hgnnValFstd}{0.21}
+
+% ---- base-rate precision (malware hiếm) ----
+\newcommand{\brTen}{0.74}
+\newcommand{\brOne}{0.22}
+\newcommand{\brTenth}{0.03}
+
+% ---- ablation ----
+\newcommand{\ablMean}{95.77}
+\newcommand{\ablMeanStd}{0.67}
+\newcommand{\ablNoHier}{89.62}   % 2 seed (90.88, 88.36), ghi rõ trong caption
+
+% ---- dataset ----
+\newcommand{\dsTotal}{3{,}860}
+\newcommand{\dsTrain}{2{,}691}
+\newcommand{\dsVal}{526}
+\newcommand{\dsTest}{554}
+\newcommand{\dsBenignProg}{281}
+
+% ---- metadata probe (Threats to Validity) ----
+\newcommand{\probeOld}{$\sim$0.99}
+\newcommand{\probeNew}{0.40}
+
+\newcommand{\hgnnFone}{\hgnnF}
+\newcommand{\hgnnNumSamples}{\dsTotal}
+\newcommand{\hgnnProbeOld}{\probeOld}
+\newcommand{\hgnnProbeNoSize}{\probeNew}
