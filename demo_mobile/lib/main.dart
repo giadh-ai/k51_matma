@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Chào UEH', home: Trang1());
+    return MaterialApp(title: 'Chào UEH', 
+    debugShowCheckedModeBanner: false,
+    home: Trang1());
   }
 }
