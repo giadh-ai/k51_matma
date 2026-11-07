@@ -46,16 +46,16 @@ Luo, Z., et~al.: {VulHawk}: Cross-architecture vulnerability detection with
   entropy-based binary code search. In: Proceedings of the Network and
   Distributed System Security Symposium (NDSS) (2023)
 
-\bibitem{b7}
-Pa, Y., Suzuki, S., Yoshioka, K., Matsumoto, T., Kasama, T., Rossow, C.:
-  {IoTPOT}: A novel honeypot for revealing current {IoT} threats. Journal of
-  Information Processing  \textbf{24}(3),  522--533 (2016).
-  \doi{10.2197/ipsjjip.24.522}
-
 \bibitem{b2}
 Roman, R., Lopez, J., Mambo, M.: Mobile edge computing, fog et al.: A survey
   and analysis of security threats and challenges. Future Generation Computer
   Systems  \textbf{78},  680--698 (2018)
+
+\bibitem{angr2016}
+Shoshitaishvili, Y., Wang, R., Salls, C., Stephens, N., Polino, M., Dutcher,
+  A., Grosen, J., Feng, S., Hauser, C., Kruegel, C., Vigna, G.: Sok: (state of)
+  the art of war: Offensive techniques in binary analysis. In: IEEE Symposium
+  on Security and Privacy (SP). pp. 138--157 (2016)
 
 \bibitem{wang2021hier}
 Wang, S., Zhao, Y., Liu, G., Su, B.: A hierarchical graph-based neural network

@@ -1,4 +1,5 @@
-\documentclass[runningheads]{llncs}
+% \documentclass[runningheads]{llncs}
+\documentclass{llncs}
 \usepackage[T1]{fontenc}
 \usepackage{newtxtext}
 \usepackage[varvw]{newtxmath}
@@ -17,7 +18,7 @@
 
 \begin{document}
 
-\title{Hierarchical Graph Structural Aggregation for Cross-Architecture IoT Malware Detection in Sustainable Edge Computing}
+\title{Hierarchical Graph Structural Aggregation for Cross-Architecture IoT Malware Detection under Confound-Controlled Evaluation}
 \titlerunning{Hierarchical Graph Aggregation for IoT Malware Detection}
 
 \author{Xuan Thanh Dinh\inst{1} \and
@@ -52,8 +53,8 @@ call graphs that are frequently disrupted by compiler obfuscation.
 
 To address these limitations, we propose H-GNN, a hierarchical
 graph neural network framework for cross-architecture IoT malware
-detection at the edge. H-GNN lifts multi-architecture binaries
-(ARM, MIPS, x86) into a unified VEX Intermediate Representation
+detection. H-GNN lifts multi-architecture binaries
+(ARM, MIPS, PowerPC, x86) into a unified VEX Intermediate Representation
 mapped to a compact vocabulary of VEX statement tags. Binary structure is modeled
 at two levels: bounded intra-procedural CFGs (Kmax = 50) encode
 function-level semantics via GATv2 and maximum pooling, while the 
@@ -63,9 +64,10 @@ for final classification.
 Evaluated on a confound-controlled, cross-architecture dataset of
 \hgnnNumSamples binaries under a family-disjoint split, H-GNN achieves an
 F1-score of \hgnnF\%$\,\pm\,$\hgnnFstd\% and accuracy of \hgnnAcc\%.
-On the same dataset a metadata-only classifier is near chance once file size
-is excluded, indicating that the model's decisions derive from program
-structure rather than build provenance.
+On the same dataset a metadata-only classifier drops to 0.40 accuracy once
+file size is excluded, well below the 0.99 it reaches on a naive split,
+indicating that the model's decisions derive from program structure rather
+than build provenance.
 \keywords{Hierarchical Graph Neural Networks \and Cross-Architecture Detection \and IoT Malware Analysis \and Static Binary Analysis \and Intermediate Representation \and Inductive Graph Learning \and VEX IR Semantic Mapping}
 \end{abstract}
 
@@ -84,7 +86,7 @@ making unified detection inherently difficult \cite{b1}.
 
 Dynamic emulation-based detectors analyze runtime system call
 trajectories and execution flows within sandboxed environments
-\cite{b3,b9}. While effective against advanced obfuscation,
+\cite{b3}. While effective against advanced obfuscation,
 they incur prohibitive computational overhead and remain
 vulnerable to environment-aware evasion, rendering them
 impractical for resource-constrained edge gateways. Static
@@ -93,16 +95,16 @@ structure, but mainstream frameworks construct monolithic flat
 Control Flow Graphs (CFGs) that suffer from \textit{information
 dilution} at scale: during message passing, sparse malicious
 footprints are overwhelmed by the vast majority of benign code
-nodes \cite{b6}. 
+nodes, a known limitation of flat graph representations at scale.
 An alternative — tracking global function interactions via traditional 
 Inter-procedural Call Graphs (ICGs) — also struggles across ISAs, as symbol-table-based 
 call targets are frequently stripped or obfuscated by cross-compilers \cite{b4}, 
 leading to topological fragmentation.
 
 To address these limitations, we leverage multi-architecture binary 
-artifacts sourced from the IoTPOT platform \cite{b7} to propose \text{H-GNN}, a
+artifacts sourced from public IoT malware corpora to propose \text{H-GNN}, a
 hierarchical graph neural network framework for static
-cross-architecture IoT malware detection at the edge. H-GNN
+cross-architecture IoT malware detection. H-GNN
 decouples binary analysis into two levels. At the
 intra-procedural level (Level 1), raw binaries are lifted into
 architecture-independent VEX Intermediate Representation (IR)
@@ -116,11 +118,16 @@ aggregated via GraphSAGE and global max-pooling for final classification.
 This design prevents node explosion and mitigates topological fragmentation without 
 relying on obfuscation-prone external symbol resolutions.
 
+We study two research questions: RQ1, detection performance under
+confound-controlled, family-disjoint evaluation; and RQ3, the contribution
+of each structural component. Cross-ISA generalisation and on-device
+efficiency are left to future work.
+
 The main contributions of this work are as follows:
 \begin{itemize}
     \item \text{Architecture-agnostic binary lifting:} A
     cross-architecture preprocessing pipeline that normalizes
-    ARM, MIPS, and x86 instructions into a unified
+    ARM, MIPS, PowerPC, and x86 instructions into a unified
     VEX IR space mapped to a compact statement-tag vocabulary, establishing
     a platform-independent feature space for heterogeneous IoT
     binaries.
@@ -132,7 +139,7 @@ The main contributions of this work are as follows:
     preventing node explosion and resolving information dilution
     in large binary graphs.
 
-    \item \text{Edge deployment and evaluation:} Comprehensive
+    \item \text{Confound-controlled evaluation:} Comprehensive
     evaluation on a confound-controlled, cross-architecture dataset of \dsTotal{} binaries under a family-disjoint split.
     H-GNN achieves an F1-score of \hgnnF\%$\,\pm\,$\hgnnFstd\% and accuracy of \hgnnAcc\%,
     with decisions driven by program structure rather than build provenance.
@@ -151,7 +158,7 @@ categories.
 
 \text{Dynamic analysis} executes binaries inside sandboxes
 or emulators to monitor system call sequences and live control
-flow \cite{b3,b9}. Although dynamic traces are robust against
+flow \cite{b3}. Although dynamic traces are robust against
 syntactic obfuscation, this paradigm introduces severe
 processing latency, high CPU/RAM overhead, and susceptibility
 to environment-aware evasion — all of which make it
@@ -193,14 +200,13 @@ inter-procedural call graphs from external symbol tables may become fragile
 when binaries are stripped or obfuscated, fragmenting the global graph
 topology.
 
-H-GNN resolves both gaps by decoupling the two levels of program structure based 
-on the architectural constraints of the edge. Bounded intra-procedural CFGs isolate 
-function-level semantics and suppress library noise via local maximum pooling \cite{b6}; 
+H-GNN resolves both gaps by decoupling the two levels of program structure. Bounded intra-procedural CFGs isolate 
+function-level semantics and suppress library noise via local maximum pooling; 
 meanwhile, the global level reconstructs an explicit Inter-procedural Call Graph 
 by parsing control-flow transfer primitives directly within the lifted VEX IR space, 
 thereby bypassing symbol-table dependencies and preserving macroscopic program state. 
 This design propagates malicious contexts via inductive GraphSAGE convolutions and 
-global max-pooling readout, enabling accurate, energy-efficient static inference 
+global max-pooling readout, enabling accurate static inference 
 across heterogeneous ISAs without severe information dilution or topological fragmentation.
 
 Prior work has also explored hierarchical graph representations
@@ -210,7 +216,7 @@ on IDA and symbol information \cite{malgraph2022}, while Wang et al. study
 hierarchical graph-based malware detection \cite{wang2021hier}. In contrast,
 H-GNN targets multi-architecture IoT ELF binaries, constructs the call graph
 directly from VEX IR without requiring a symbol table, and evaluates inference
-on edge hardware.
+under a confound-controlled, family-disjoint protocol.
 
 %------------------------Proposed Methodology----------------------------------
 
@@ -218,7 +224,7 @@ on edge hardware.
 \label{sec:methodology}
 
 \subsection{System Overview}
-The proposed \text{H-GNN} framework is architected as a modular, high-throughput static analysis pipeline designed to process heterogeneous IoT binaries and generate an accurate classification decision (Malicious or Benign) at the sustainable edge. As illustrated in Fig.~\ref{fig:system_overview}, the pipeline bypasses the vulnerabilities of traditional static methods by decoupling program representation into three distinct, interconnected stages:
+The proposed \text{H-GNN} framework is architected as a modular, high-throughput static analysis pipeline designed to process heterogeneous IoT binaries and generate an accurate classification decision (Malicious or Benign). As illustrated in Fig.~\ref{fig:system_overview}, the pipeline bypasses the vulnerabilities of traditional static methods by decoupling program representation into three distinct, interconnected stages:
 
 \begin{figure}[t]
 \centering
@@ -246,20 +252,19 @@ The proposed \text{H-GNN} framework is architected as a modular, high-throughput
 \draw[arr, gray] (l1) -- (p1);
 \draw[arr, gray] (l2) -- (p2);
 \end{tikzpicture}
-\caption{Overview of the proposed \text{H-GNN} framework. Heterogeneous multi-architecture ELF binaries are lifted into architecture-agnostic VEX IR, decomposed into a two-level hierarchical graph (bounded intra-procedural CFGs and an inter-procedural call graph reconstructed from control-flow primitives), and encoded bottom-up with GATv2 and GraphSAGE for binary malware detection at the edge.}
+\caption{Overview of the proposed \text{H-GNN} framework. Heterogeneous multi-architecture ELF binaries are lifted into architecture-agnostic VEX IR, decomposed into a two-level hierarchical graph (bounded intra-procedural CFGs and an inter-procedural call graph reconstructed from control-flow primitives), and encoded bottom-up with GATv2 and GraphSAGE for binary malware detection.}
 \label{fig:system_overview}
 \end{figure}
 
 \begin{enumerate}
     \item \text{Architecture-Agnostic Preprocessing Layer}: Normalizes multi-architecture binaries (ARM, MIPS, x86, PowerPC) by lifting machine instructions into a unified Intermediate Representation (VEX IR) via the \textit{angr} framework.
-    \item \text{Hierarchical Graph Construction Layer}: Extracts localized Control Flow Graphs (CFGs) for individual functions under a bounded constraint to eliminate structural noise \cite{b6} (Level 1), then constructs the true Inter-procedural Call Graph to explicitly represent global functional dependencies without fragile flat sequence conversion (Level 2).
+    \item \text{Hierarchical Graph Construction Layer}: Extracts localized Control Flow Graphs (CFGs) for individual functions under a bounded constraint to eliminate structural noise (Level 1), then constructs the true Inter-procedural Call Graph to explicitly represent global functional dependencies without fragile flat sequence conversion (Level 2).
     \item Hierarchical Neural Aggregation Engine: Executes bottom-up representation learning where a local GNN function encoder processes function-level CFGs via maximum pooling, which are subsequently aggregated and refined by a global GraphSAGE processing layer and a global max-pooling readout module for final inference.
 \end{enumerate}
 
 
 \subsection{Threat Model and Scope}
-We target static detection of cross-architecture IoT malware on resource-constrained edge gateways,
-without executing samples. The adversary distributes ELF binaries cross-compiled for heterogeneous
+We target static detection of cross-architecture IoT malware without executing samples. The adversary distributes ELF binaries cross-compiled for heterogeneous
 ISAs (ARM, MIPS, PowerPC, x86), which may be stripped, statically linked, and packed (e.g., UPX), and
 may undergo lightweight structural perturbation such as function insertion, reordering, or dead-code
 injection. The defender inspects binary structure only. Out of scope are samples that the unpacking
@@ -268,10 +273,10 @@ active adversarial evasion against the model, which we identify as future work.
 
 
 \subsection{Architecture-Agnostic Preprocessing and Feature Initialization}
-To achieve cross-architecture compatibility, the preprocessing layer strips hardware-dependent properties prior to graph building, transforming raw machine code into platform-independent VEX IR statements \cite{b4}.
+To achieve cross-architecture compatibility, the preprocessing layer strips hardware-dependent properties prior to graph building, transforming raw machine code into platform-independent VEX IR statements \cite{angr2016}.
 
 \begin{itemize}
-    \item \text{Intermediate Representation Decomposition}: VEX IR abstracts away architecture-specific register layouts and instruction sets, converting complex CISC/RISC operations into side-effect-free, standardized primitives \cite{b8}. Instruction semantics are condensed into core operational behaviors such as register reads (\texttt{GET}), memory loads (\texttt{LDle}), stores (\texttt{STle}), and arithmetic operations (\texttt{Add32}).
+    \item \text{Intermediate Representation Decomposition}: VEX IR abstracts away architecture-specific register layouts and instruction sets, converting complex CISC/RISC operations into side-effect-free, standardized primitives. Instruction semantics are condensed into core operational behaviors such as register reads (\texttt{GET}), memory loads (\texttt{LDle}), stores (\texttt{STle}), and arithmetic operations (\texttt{Add32}).
     \item \text{Semantic Token Mapping}: Each lifted function is represented at the VEX
 statement level. Every VEX statement is assigned one of a compact vocabulary of
 statement tags (e.g., \texttt{WrTmp}, \texttt{Put}, \texttt{Store}, \texttt{Exit}, \texttt{LoadG}),
@@ -281,7 +286,7 @@ feature space learned end-to-end with the classifier.
 \end{itemize}
 
 \subsection{Hierarchical Graph Layout Construction}
-To preserve localized control logic while scaling efficiently on edge platforms, H-GNN models binary software using a decoupled, dual-level hierarchical structure \cite{b6}.
+To preserve localized control logic while scaling the graph representation, H-GNN models binary software using a decoupled, dual-level hierarchical structure.
 
 \subsubsection{Level 1: Intra-procedural Control Flow Graph (CFG)}
 For each isolated function $f_i$ extracted from the binary, a local Control Flow Graph is formulated as:
@@ -297,7 +302,7 @@ To eliminate structural noise from redundant library routines and prevent memory
 \begin{equation}
 i \in \{1, 2, \dots, N\} \quad \text{where} \quad N = \min(\text{Num\_Functions}, K_{\text{max}}).
 \end{equation}
-For reproducibility, when a binary exceeds $K_{\text{max}}$ the first $K_{\text{max}}$ functions in ascending order of virtual entry address are selected. This bound limits graph size and reduces the information dilution introduced by large numbers of helper routines.
+For reproducibility, when a binary exceeds $K_{\text{max}}$ the first $K_{\text{max}}$ functions in ascending order of virtual entry address are selected. This bound limits graph size and reduces the information dilution introduced by large numbers of helper routines. We acknowledge that an adversary performing function insertion or reordering (Section~\ref{sec:methodology}) could shift malicious routines outside this address-ordered window; assessing robustness to such perturbation is left to future work.
 
 \subsubsection{Level 2: Inter-procedural Call Graph (ICG)}
 To capture the macroscopic context and control transitions across separate subroutines without flattening structural dependencies, H-GNN models the global program level using the explicit execution topology of the Inter-procedural Call Graph. The global program architecture is formulated as a directed graph layout:
@@ -375,7 +380,7 @@ provenance---architecture, linking, stripping, packing, and compiler
 toolchain---rather than in behaviour, letting a classifier reach high
 accuracy by learning artefacts instead of maliciousness. To control for
 this, the benign class is compiled by the authors from open-source
-software using period cross-compilation toolchains, so that its
+software using period and modern cross-compilation toolchains, so that its
 architecture, ABI, linking, stripping, and packing distributions match
 the malware class. We quantify residual leakage with a metadata-only
 probe (Section~\ref{sec:threats}): on a naive benign/malware split it
@@ -384,10 +389,12 @@ drops to \probeNew{} once file size is excluded, indicating that low-level
 build artefacts no longer separate the classes.
 
 The dataset contains \dsTotal{} ELF binaries over six instruction-set
-targets (ARM OABI/EABI, MIPS big/little endian, PowerPC, i386). Malware is
+targets (ARM OABI/EABI, MIPS big/little endian, PowerPC, i386). These six targets span four ISA families (ARM, MIPS, PowerPC, x86). Malware is
 drawn from public IoT corpora, deduplicated by SHA-256, restricted to
-architectures supported by our lifter, and UPX-unpacked prior to analysis;
-benign samples span \dsBenignProg{} distinct open-source programs. We use a
+architectures supported by our lifter, and packed malware samples are
+UPX-unpacked prior to analysis, while a matched fraction of the benign set
+is UPX-packed to mirror the malware packing ratio. Benign samples span
+\dsBenignProg{} distinct open-source programs. We use a
 \emph{family-/program-disjoint} split so that programs and malware
 families at test time are unseen during training: \dsTrain{} training,
 \dsVal{} validation, and \dsTest{} test graphs.
@@ -404,8 +411,8 @@ for testing. Results are mean~$\pm$~std over five seeds unless noted.
 Table~\ref{tab:detection} reports test-set performance. \text{H-GNN}
 attains F1 $\hgnnF{}\pm\hgnnFstd{}\%$ with PR-AUC $\hgnnPrauc{}\%$ and a
 false-positive rate of $\hgnnFpr{}\%$ at $95\%$ true-positive rate. These
-numbers are obtained where a metadata-only classifier is near chance once
-file size is removed, so the model's decisions derive from program
+numbers are obtained where a metadata-only classifier drops well below the
+naive-split baseline once file size is removed, so the model's decisions derive from program
 structure rather than build provenance. The headline F1 is therefore an
 honest measure of malicious structure under a strict, family-disjoint
 protocol.
@@ -477,7 +484,7 @@ Configuration & F1 (\%) \\
 \addplot[fill=blue!55] coordinates {(Full,97.99) ({Mean-pool},95.77) ({No-hier.},89.62)};
 \end{axis}
 \end{tikzpicture}
-\caption{Component ablation (test F1-score). The full \text{H-GNN} with hierarchical decomposition and global max-pooling attains \hgnnF\%; replacing global max-pooling with mean-pooling drops it to \ablMean\%, and removing the hierarchical decomposition drops it to \ablNoHier\% (mean of two seeds), confirming both design choices.}
+\caption{Component ablation (test F1-score; y-axis truncated at 85 for readability). The full \text{H-GNN} with hierarchical decomposition and global max-pooling attains \hgnnF\%; replacing global max-pooling with mean-pooling drops it to \ablMean\%, and removing the hierarchical decomposition drops it to \ablNoHier\% (mean of two seeds), confirming both design choices.}
 \label{fig:ablation_study}
 \end{figure}
 
@@ -503,8 +510,7 @@ matched to the malware set, and quantify residual leakage with a metadata-only p
 benign/malware split the probe reaches roughly \hgnnProbeOld\ accuracy, whereas on our matched dataset
 it drops to \hgnnProbeNoSize\ once file size is excluded, indicating that architecture, linking,
 stripping, and packing no longer separate the classes. Residual file-size differences are handled at
-the model level: H-GNN operates on CFG structure, and the $K_{\max}$ bound limits graph size; an
-ablation confirms the model does not rely on raw size.
+the model level: H-GNN operates on CFG structure, and the $K_{\max}$ bound limits graph size.
 
 \textbf{Internal validity.} To avoid train/test leakage from near-duplicate malware variants and
 shared benign programs, we deduplicate by SHA-256 and evaluate under a family-/program-disjoint split,
@@ -514,8 +520,8 @@ where test programs and malware families are unseen during training.
 two toolchain generations; it may not capture all legitimate IoT software. We report the number of
 distinct benign programs and include both period and modern toolchains to mitigate compiler-era bias.
 
-\textbf{Conclusion validity.} Results are reported across multiple random seeds; we use group-aware
-cross-validation and report mean and standard deviation to reduce sensitivity to a single partition.
+\textbf{Conclusion validity.} We report mean and standard deviation across five random seeds on a
+fixed family-disjoint split to reduce sensitivity to a single partition.
 
 %-----------------Ket luan---------------------
 \section{Conclusion and Future Work}
@@ -523,7 +529,7 @@ cross-validation and report mean and standard deviation to reduce sensitivity to
 
 We introduced \method{}, a hierarchical GNN framework for cross-architecture
 IoT malware detection that couples intra-functional VEX-IR CFG semantics
-with an explicit inter-procedural call graph, enabling compiler-agnostic
+with an explicit inter-procedural call graph, enabling architecture-agnostic
 threat identification across heterogeneous ISAs.
 Experimental evaluations on a confound-controlled, family-disjoint
 dataset confirm that \method{} achieves an F1-score of $\hgnnF\%$, with
@@ -544,6 +550,8 @@ Moving forward, we envision several promising directions for future exploration:
     to embed explainability frameworks (\textit{e.g.}, GNNExplainer) to help
     analysts localize malicious sub-graphs and convert neural predictions into
     actionable cyber threat intelligence.
+    \item Cross-ISA generalisation (leave-one-ISA-out) and on-device
+    latency/energy measurement on gateway hardware.
 \end{itemize}
 
 
